@@ -96,9 +96,9 @@ export default function Login() {
         <View className="my-6 w-full flex-row items-center">
           <View className="bg-inputborder h-[1px] flex-1" />
 
-          <View className="mx-4 flex flex-row gap-5">
+          <View className="mx-4 -mb-[30px] flex flex-row gap-5">
             {/* Google */}
-            <View className="h-[57px] w-[57px] items-center justify-center rounded-full bg-[#F7F7F7]">
+            <View className="h-[57px] w-[57px] items-center justify-center rounded-full bg-gray-200">
               <Image
                 source={require('@/assets/onboarding/google_icon.png')} // correct prop
                 className="h-8 w-8" // icon size
@@ -107,7 +107,7 @@ export default function Login() {
             </View>
 
             {/* Apple */}
-            <View className="h-[57px] w-[57px] items-center justify-center rounded-full bg-[#F7F7F7]">
+            <View className="h-[57px] w-[57px] items-center justify-center rounded-full bg-gray-200">
               <Image
                 source={require('@/assets/onboarding/apple_icon.png')}
                 className="h-8 w-8"
