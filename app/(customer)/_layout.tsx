@@ -8,9 +8,9 @@ export default function CustomerTabs() {
   const { user, role } = useSelector((state: RootState) => state.auth);
 
   // Redirect if not authenticated or wrong role
-  // if (!user || role !== 'customer') {
-  //   return <Redirect href="/(onboarding)" />;
-  // }
+  if (!user || role !== 'customer') {
+    return <Redirect href="/(onboarding)" />;
+  }
 
   return (
     <Tabs screenOptions={{ headerShown: false }}>

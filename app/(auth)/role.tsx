@@ -23,10 +23,10 @@ export default function Role() {
 
   // Card press handlers
   const handleNeedServicePress = () => {
-    router.push('/(onboarding)/login');
+    router.push('/(auth)/login');
   };
   const handleProviderPress = () => {
-    router.push('/(onboarding)/login');
+    router.push('/(auth)/login');
   };
 
   return (

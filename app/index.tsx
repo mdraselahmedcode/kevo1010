@@ -51,7 +51,7 @@ export default function Index() {
   const { user, role } = useSelector((state: RootState) => state.auth);
 
   if (!user) {
-    return <Redirect href="/(onboarding)" />;
+    return <Redirect href="/(auth)" />;
   }
 
   if (role === 'customer') {

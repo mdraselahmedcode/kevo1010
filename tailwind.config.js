@@ -38,16 +38,16 @@ module.exports = {
 
       // fonts
       fontFamily: {
-        nunito: ['Nunito-Regular'],
-        nunitoMeidum: ['Nunito-Medium'],
-        nunitoSemi: ['Nunito-SemiBold'],
-        nunitoBold: ['Nunito-Bold'],
+        nunito: ['Nunito-Regular'], // 400
+        nunitoMeidum: ['Nunito-Medium'], // 500
+        nunitoSemi: ['Nunito-SemiBold'], // 600
+        nunitoBold: ['Nunito-Bold'], // 700
 
-        syne: ['Syne-Regular'],
-        syneMeidum: ['Syne-Medium'],
-        syneSemi: ['Syne-SemiBold'],
-        syneBold: ['Syne-Bold'],
-        syneExtraBold: ['Syne-ExtraBold'],
+        syne: ['Syne-Regular'], // 400
+        syneMeidum: ['Syne-Medium'], // 500
+        syneSemi: ['Syne-SemiBold'], // 600
+        syneBold: ['Syne-Bold'], // 700
+        syneExtraBold: ['Syne-ExtraBold'], // 800
       },
 
       fontSize: {
