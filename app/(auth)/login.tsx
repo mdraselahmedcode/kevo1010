@@ -99,7 +99,7 @@ export default function Login() {
             <InputLabel text="Signup" />
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => router.push('/forgotPassword')}>
+          <TouchableOpacity onPress={() => router.push('/(auth)/forgot-password')}>
             <InputLabel text="Forgot Password" />
           </TouchableOpacity>
         </View>

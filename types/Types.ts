@@ -10,6 +10,7 @@ export enum FieldType {
   RANGE = 'range',
   GRIDINPUT = 'gridinput',
   LOCATION = 'location',
+  BOOLEAN = 'BOOLEAN',
 }
 
 export enum KeyboardType {
@@ -31,10 +32,10 @@ export interface FieldsType {
   name: string;
   type: FieldType;
   keyboard: KeyboardType;
-  placeHolder: string;
-  label: string;
+  placeHolder?: string;
+  label?: string;
   error: boolean;
-  value: string | number | boolean | string[] | { min: number; max: number };
+  value: string | number | boolean | string[] | { min: number; max: number } | null;
   required: boolean;
   options?: { label: string; value: string }[];
   multiple?: boolean; // for SELECT: allow multiple selection

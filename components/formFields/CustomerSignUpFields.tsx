@@ -84,6 +84,34 @@ const CustomerSignUpFields = () => {
     //   required: false,
     //   keyboard: KeyboardType.DEFAULT,
     // },
+
+    {
+      name: 'zipCode',
+      type: FieldType.STRING,
+      placeHolder: 'Enter ZIP Code',
+      label: 'ZIP Code',
+      error: false,
+      value: '737323',
+      required: true,
+      keyboard: KeyboardType.NUMBER_PAD,
+    },
+
+    {
+      name: 'latitude',
+      type: FieldType.NUMBER,
+      error: false,
+      value: 0,
+      required: false,
+      keyboard: KeyboardType.NUMERIC,
+    },
+    {
+      name: 'longitude',
+      type: FieldType.NUMBER,
+      error: false,
+      value: 0,
+      required: false,
+      keyboard: KeyboardType.NUMERIC,
+    },
   ]);
   return { fields, setFields };
 };
