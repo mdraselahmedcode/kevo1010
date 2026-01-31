@@ -1,7 +1,7 @@
 // app/(auth)/signup.tsx
 
-import React, { useEffect } from 'react';
-import { View, TouchableOpacity, ScrollView, Image, Text } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, TouchableOpacity, Text } from 'react-native';
 
 import HeaderPrimary from '@/components/ui/shared/HeaderPrimary';
 import InputLabel from '@/components/ui/shared/InputLabel';
@@ -12,16 +12,21 @@ import ServiceSignUpFields from '@/components/formFields/ServiceSignUpFields';
 import { useRouter } from 'expo-router';
 import SocialAuthDivider from '@/components/ui/auth/SocialAuthDivider';
 import InputCheckbox from '@/components/ui/inputs/InputCheckbox';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import useLocation from '@/hooks/useLocation';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import FormLayout from '@/components/ui/layouts/FormLayout';
+import SuccessModal from '@/components/ui/modals/SuccessModal';
+import { setRole } from '@/store/authSlice';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '@/store';
+import { validateFields } from '@/utils/formValidate';
 
 export default function ServiceProviderSignup() {
   const router = useRouter();
+  const dispatch = useDispatch<AppDispatch>();
 
   const { fields, setFields } = ServiceSignUpFields();
   const { location, loading: locationLoading } = useLocation();
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const getField = (name: string) => fields.find((f) => f.name === name);
 
@@ -31,12 +36,19 @@ export default function ServiceProviderSignup() {
     );
   };
 
+  // useEffect(() => {
+  //   dispatch(setRole('provider'));
+  // }, []);
+
   /* ---------------- Submit ---------------- */
   const handleServiceProviderSignupPress = () => {
     if (!location) {
       alert('Location not available yet. Please wait.');
       return;
     }
+
+    const isValid = validateFields(fields, setFields);
+    if (!isValid) return;
 
     // Create payload from all fields
     const payload = fields.reduce((acc: Record<string, any>, field) => {
@@ -45,6 +57,11 @@ export default function ServiceProviderSignup() {
     }, {});
 
     console.log('Signup Payload:', payload);
+    // 🔥 API call here
+    // await signup(payload);
+
+    // ✅ On success
+    setShowSuccessModal(true);
   };
 
   // Auto-set latitude & longitude into fields when location updates
@@ -173,6 +190,17 @@ export default function ServiceProviderSignup() {
             onPress: () => console.log('Apple Login'),
           },
         ]}
+      />
+
+      <SuccessModal
+        visible={showSuccessModal}
+        message="Signup Successful!"
+        buttonText="Done"
+        onClose={() => setShowSuccessModal(false)}
+        onButtonPress={() => {
+          setShowSuccessModal(false);
+          router.replace('/(provider)/home');
+        }}
       />
     </FormLayout>
   );

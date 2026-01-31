@@ -55,11 +55,11 @@ export default function Index() {
   }
 
   if (role === 'customer') {
-    return <Redirect href="/(customer)/home" />;
+    return <Redirect href="/app/(customer)/index" />;
   }
 
   if (role === 'provider') {
-    return <Redirect href="/(provider)/home" />;
+    return <Redirect href="/app/(provider)/index" />;
   }
 
   return null;

@@ -1,7 +1,7 @@
 // src/store/authSlice.ts
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-type Role = 'customer' | 'provider' | null;
+export type Role = 'customer' | 'provider' | null;
 
 type AuthState = {
   user: null | {

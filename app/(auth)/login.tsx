@@ -15,9 +15,21 @@ import InputField from '@/components/ui/inputs/Input';
 import LoginFields from '@/components/formFields/LoginFields';
 import PasswordInput from '@/components/ui/inputs/PasswordInput';
 import SocialAuthDivider from '@/components/ui/auth/SocialAuthDivider';
+import { useLoginMutation } from '@/store/api/authApi';
+import { RootState } from '@/store';
+import { useSelector } from 'react-redux';
+import { Role, setRole, setUser } from '@/store/authSlice';
+import { useDispatch } from 'react-redux';
+import type { AppDispatch } from '@/store';
+import { validateFields } from '@/utils/formValidate';
 
 export default function Login() {
   const router = useRouter();
+
+  const dispatch = useDispatch<AppDispatch>();
+  const { user, role, isAppLoading } = useSelector((s: RootState) => s.auth);
+  const [login, { isLoading }] = useLoginMutation();
+
   // login fields
   const { fields, setFields } = LoginFields(); // make sure LoginFields() returns an array of field objects
 
@@ -44,11 +56,50 @@ export default function Login() {
   });
 
   /* ---------------- Handlers ---------------- */
-  const handleLoginPress = () => {
-    const email = getField('email')?.value;
-    const password = getField('password')?.value;
+  // const handleLoginPress = () => {
+  //   const email = getField('email')?.value;
+  //   const password = getField('password')?.value;
 
-    console.log('Login:', email, password);
+  //   console.log('Login:', email, password);
+  // };
+
+  const handleLoginPress = async () => {
+    const isValid = validateFields(fields, setFields);
+    if (!isValid) {
+      return isValid;
+    }
+
+    // safely get email and password values
+    const email = (getField('email')?.value as string) || '';
+    const password = (getField('password')?.value as string) || '';
+
+    console.log('Mock login:', email, password);
+
+    // simple validation
+    if (!email || !password) {
+      alert('Please enter email and password');
+      return;
+    }
+
+    // Mock response (res is guaranteed to exist)
+    const res = {
+      user: { id: '123', email },
+      role: email.includes('provider') ? 'provider' : 'customer',
+    };
+
+    // Dispatch to redux
+    dispatch(setUser(res.user));
+    // dispatch(setRole(res.role));
+    dispatch(setRole(res.role as Role));
+
+    console.log('Login:', email, password, res.role);
+    router.replace('/(customer)/home');
+
+    if (res.role === 'customer') {
+      router.replace('/(customer)/home');
+    } else if (res.role === 'provider') {
+      router.replace('/(provider)/home');
+    }
   };
 
   return (
@@ -95,7 +146,8 @@ export default function Login() {
 
         {/* ---------------- Links ---------------- */}
         <View className="mb-6 flex-row justify-between">
-          <TouchableOpacity onPress={() => router.push('/signup/serviceProvider')}>
+          {/* <TouchableOpacity onPress={() => router.push('/signup/serviceProvider')}> */}
+          <TouchableOpacity onPress={() => router.push('/(auth)/role')}>
             <InputLabel text="Signup" />
           </TouchableOpacity>
 

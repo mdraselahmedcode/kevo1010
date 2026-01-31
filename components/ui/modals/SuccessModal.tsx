@@ -2,6 +2,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, Modal, StyleSheet } from 'react-native';
 import PrimaryButton from '../PrimaryButton';
+import SuccessCheckIcon from '../icons/SuccessCheckIcon';
 
 type SuccessModalProps = {
   visible: boolean;
@@ -22,8 +23,10 @@ const SuccessModal: React.FC<SuccessModalProps> = ({
     <Modal animationType="slide" transparent visible={visible} onRequestClose={onClose}>
       <View style={styles.overlay}>
         <View style={styles.container}>
+          <SuccessCheckIcon />
+
           <Text style={styles.message}>{message}</Text>
-          <View className="flex h-[80px] w-[80px] items-center justify-center bg-white "></View>
+
           <View style={{ width: '100%', marginTop: 48 }}>
             <PrimaryButton
               title={buttonText || 'Confirm'}

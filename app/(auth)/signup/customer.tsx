@@ -1,13 +1,6 @@
-import React, { useEffect } from 'react';
-import {
-  View,
-  KeyboardAvoidingView,
-  Platform,
-  ScrollView,
-  Text,
-  TouchableOpacity,
-} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import React, { useEffect, useState } from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
+import SuccessModal from '@/components/ui/modals/SuccessModal';
 
 import HeaderPrimary from '@/components/ui/shared/HeaderPrimary';
 import InputField from '@/components/ui/inputs/Input';
@@ -19,17 +12,29 @@ import SocialAuthDivider from '@/components/ui/auth/SocialAuthDivider';
 import InputCheckbox from '@/components/ui/inputs/InputCheckbox';
 import useLocation from '@/hooks/useLocation';
 import FormLayout from '@/components/ui/layouts/FormLayout';
+import { setRole } from '@/store/authSlice';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '@/store';
+import { validateFields } from '@/utils/formValidate';
+import { setUser } from '@/store/authSlice';
 
 export default function CustomerSignup() {
   const router = useRouter();
+  const dispatch = useDispatch<AppDispatch>();
+
   const { fields, setFields } = CustomerSignUpFields();
   const { location, loading: locationLoading } = useLocation();
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const getField = (name: string) => fields.find((f) => f.name === name);
   const updateField = (name: string, value: string | number | boolean) =>
     setFields((prev) =>
       prev.map((field) => (field.name === name ? { ...field, value, error: false } : field))
     );
+
+  // useEffect(() => {
+  //   dispatch(setRole('customer'));
+  // }, []);
 
   // When user presses "Sign Up"
   const handleCustomerSignupPress = () => {
@@ -38,12 +43,21 @@ export default function CustomerSignup() {
       return;
     }
 
+    const isValid = validateFields(fields, setFields);
+    if (!isValid) return;
+
     const payload = fields.reduce((acc: Record<string, any>, field) => {
       acc[field.name] = field.value;
       return acc;
     }, {});
 
     console.log('Signup Payload:', payload);
+
+    // 🔥 API call here
+    // await signup(payload);
+
+    // ✅ On success
+    setShowSuccessModal(true);
   };
 
   // Auto-set latitude & longitude into fields when location updates
@@ -169,6 +183,18 @@ export default function CustomerSignup() {
             onPress: () => console.log('Apple Login'),
           },
         ]}
+      />
+
+      <SuccessModal
+        visible={showSuccessModal}
+        message="Signup Successful!"
+        buttonText="Done"
+        onClose={() => setShowSuccessModal(false)}
+        onButtonPress={() => {
+          setShowSuccessModal(false);
+          // router.replace('/login');
+          router.replace('/(customer)/home');
+        }}
       />
     </FormLayout>
   );

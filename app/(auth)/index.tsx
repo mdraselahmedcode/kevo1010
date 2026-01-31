@@ -34,7 +34,7 @@ export default function Landing() {
       {/* Button */}
       <PrimaryButton
         title="Get Started"
-        onPress={() => router.push('/(auth)/role')}
+        onPress={() => router.push('/(auth)/login')}
         className="w-full max-w-[400px] self-center"
       />
     </View>

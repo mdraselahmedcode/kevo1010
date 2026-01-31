@@ -1,14 +1,14 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 
-const history = () => {
+const jobs = () => {
   return (
     <View>
-      <Text>history</Text>
+      <Text>jobs</Text>
     </View>
   );
 };
 
-export default history;
+export default jobs;
 
 const styles = StyleSheet.create({});

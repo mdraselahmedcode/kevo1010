@@ -3,8 +3,13 @@ import { View, Image, Text, Dimensions, Pressable, TouchableOpacity } from 'reac
 import { router } from 'expo-router';
 import ResponsiveText from '@/components/ui/ResponsiveText';
 import HeroImage from '@/components/ui/HeroImage';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '@/store';
+import { setRole } from '@/store/authSlice';
 
 export default function Role() {
+  const dispatch = useDispatch<AppDispatch>();
+
   const { width } = Dimensions.get('window');
   const isTablet = width > 768;
 
@@ -23,10 +28,13 @@ export default function Role() {
 
   // Card press handlers
   const handleNeedServicePress = () => {
-    router.push('/(auth)/login');
+    dispatch(setRole('customer')); // save selected role
+    router.push('/(auth)/signup/customer');
   };
+
   const handleProviderPress = () => {
-    router.push('/(auth)/login');
+    dispatch(setRole('provider'));
+    router.push('/(auth)/signup/serviceProvider');
   };
 
   return (
