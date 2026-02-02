@@ -1,6 +1,7 @@
 import React, { useState, FC } from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import { ServiceButton } from './ServiceButton';
+import { useRouter } from 'expo-router';
 
 const { width: screenWidth } = Dimensions.get('window');
 
@@ -16,11 +17,22 @@ type Props = {
 };
 
 export const ServiceTabs: React.FC<Props> = ({ services, onSelect }) => {
+  const router = useRouter();
+
   const [selected, setSelected] = useState<string>(services[0].title);
+
+  // const handlePress = (service: Service) => {
+  //   setSelected(service.title);
+  //   onSelect(service);
+  // };
 
   const handlePress = (service: Service) => {
     setSelected(service.title);
-    onSelect(service);
+
+    router.push({
+      pathname: '/(customer-flow)/service/request',
+      params: { title: service.title },
+    });
   };
 
   const buttonsPerRow = 2;

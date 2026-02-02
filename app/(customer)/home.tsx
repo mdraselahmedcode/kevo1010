@@ -35,10 +35,10 @@ const Home = () => {
   const services: Service[] = [
     { title: 'Snow Plowing', Icon: BushIcon },
     { title: 'Snow Shoveling', Icon: ShovelSnowIcon },
-    { title: 'Seasonal contracts', Icon: SeasonalSubBushIcon },
     { title: 'Salting / de-icing', Icon: IceIcon },
     { title: 'Lawn mowing', Icon: GrassCuttingIcon },
     { title: 'Landscaping', Icon: LandscapIcon },
+    { title: 'Seasonal contracts', Icon: SeasonalSubBushIcon },
   ];
 
   const handleSearchPress = () => {
@@ -60,6 +60,7 @@ const Home = () => {
         style={{ flex: 1 }}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
         <ScrollView
+          className="bg-background"
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled"
           contentContainerStyle={{ paddingBottom: 25 }}>
@@ -112,7 +113,7 @@ const Home = () => {
               text="Select a Service"
               style={{
                 textAlign: 'left',
-                fontFamily: 'nunito',
+                fontFamily: 'Nunito-SemiBold',
               }}
             />
 
@@ -136,23 +137,20 @@ const Home = () => {
                 marginBottom: 4, // Space for shadow to be visible
               }}>
               <View
-                className="flex flex-row items-center gap-3 rounded-xl bg-white"
+                className="flex flex-row items-center gap-3 rounded-xl bg-background"
                 style={{
                   paddingVertical: 14,
                   paddingHorizontal: 11,
-                  // Remove marginHorizontal from here
-                  // Outer shadow settings
                   shadowColor: '#000',
-                  shadowOffset: {
-                    width: 0,
-                    height: 0,
-                  },
+                  shadowOffset: { width: 0, height: 0 },
                   shadowOpacity: 0.25,
                   shadowRadius: 2,
                   elevation: 2,
                 }}>
                 <BushWithBgIcon size={36} iconSize={24} color="#2C80EC" />
-                <View className=" flex items-start  ">
+
+                {/* 👇 THIS is the key */}
+                <View style={{ flex: 1, justifyContent: 'center' }}>
                   <TextBodySecondary
                     style={{
                       textAlign: 'left',
@@ -167,6 +165,8 @@ const Home = () => {
                     text="View past jobs and invoice"
                   />
                 </View>
+
+                {/* 👉 Pushed automatically to the right */}
                 <ArrowRightTopIconWithBg iconSize={24} size={42} color="#fff" />
               </View>
             </View>

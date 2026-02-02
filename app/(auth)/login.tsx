@@ -17,9 +17,8 @@ import PasswordInput from '@/components/ui/inputs/PasswordInput';
 import SocialAuthDivider from '@/components/ui/auth/SocialAuthDivider';
 import { useLoginMutation } from '@/store/api/authApi';
 import { RootState } from '@/store';
-import { useSelector } from 'react-redux';
 import { Role, setRole, setUser } from '@/store/authSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import type { AppDispatch } from '@/store';
 import { validateFields } from '@/utils/formValidate';
 

@@ -32,7 +32,7 @@ const BushWithBgIcon: React.FC<BushWithBgIconProps> = ({
           right: size * 0.06,
           bottom: size * 0.06,
           borderRadius: (size * 0.33) / 2,
-          backgroundColor: '#d4d6d6', // bg-sky-50
+          backgroundColor: '#e9ecec', // bg-sky-50
         }}
       />
 

@@ -10,6 +10,7 @@ export { SeasonalSubBushIcon } from './SeasonalSubBushIcon';
 export { GearRotationIcon } from './GearRotationIcon';
 export { BriefcaseIcon } from './BriefcaseIcon';
 export { ChatIcon } from './ChatIcon';
+export { ArrowLeftChevIcon } from './ArrowLeftChevIcon';
 export { OneManIcon } from './OneManIcon';
 export { ArrowRightTopIcon } from './ArrowRightTopIcon';
 // login and signup page
