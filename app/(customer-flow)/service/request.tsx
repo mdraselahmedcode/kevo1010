@@ -10,7 +10,8 @@ import { useState } from 'react';
 import PrimaryButton from '@/components/ui/PrimaryButton';
 import ImageUploadInputField from '@/components/ui/inputs/ImageUploadInputField';
 import { validateFields } from '@/utils/formValidate';
-
+import { ClockIcon } from '@/components/icons/ClockIcon';
+import { CalendarIcon } from '@/components/icons/CalendarIcon';
 export default function ServiceRequest() {
   const { title } = useLocalSearchParams<{ title: string }>();
   const { fields, setFields } = CustomerRequireServiceFields();
@@ -129,6 +130,8 @@ export default function ServiceRequest() {
                   placeholder="mm/dd/yyyy"
                   error={!!getField('date')?.error}
                   keyboard="default"
+                  leftIconComponent={<CalendarIcon size={24} color="#4B5563" />}
+                  showLeftIcon
                   showLabel
                   required
                   style={{ backgroundColor: 'transparent' }}
@@ -140,6 +143,8 @@ export default function ServiceRequest() {
                   label="Time"
                   placeholder="hh:mm am/pm"
                   keyboard="default"
+                  leftIconComponent={<ClockIcon size={24} color="#4B5563" />}
+                  showLeftIcon
                   showLabel
                   style={{ backgroundColor: 'transparent' }}
                 />
@@ -179,10 +184,11 @@ export default function ServiceRequest() {
               value={(getField('images')?.value as string[]) || []}
               handler={(name, value) => updateField('images', value)}
               name="images"
-              label="Upload Photos (Up To 3)"
-              required={false}
-              showLabel={true}
-              max={3}
+              label={getField('images')?.label}
+              placeholder={getField('images')?.placeHolder}
+              required={getField('images')?.required}
+              showLabel
+              max={getField('images')?.max}
             />
 
             {/* Create Service Button */}

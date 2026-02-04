@@ -13,6 +13,7 @@ export { ChatIcon } from './ChatIcon';
 export { ArrowLeftChevIcon } from './ArrowLeftChevIcon';
 export { OneManIcon } from './OneManIcon';
 export { ArrowRightTopIcon } from './ArrowRightTopIcon';
+export { VerifiedIcon } from './VerifiedIcon';
 // login and signup page
 export { EyeOpenIcon } from './EyeOpenIcon';
 export { EyeCloseIcon } from './EyeCloseIcon';

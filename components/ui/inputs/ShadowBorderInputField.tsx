@@ -27,6 +27,7 @@ interface ShadowBorderInputFieldProps {
   showLabel?: boolean;
 
   /** Icon control */
+  leftIconComponent?: React.ReactNode;
   leftIcon?: FeatherIconName;
   rightIcon?: FeatherIconName;
   showLeftIcon?: boolean;
@@ -54,6 +55,7 @@ const ShadowBorderInputField: React.FC<ShadowBorderInputFieldProps> = ({
   numberOfLines,
   required = true,
   showLabel = true,
+  leftIconComponent,
   leftIcon,
   rightIcon,
   showLeftIcon = false,
@@ -91,8 +93,18 @@ const ShadowBorderInputField: React.FC<ShadowBorderInputFieldProps> = ({
           elevation: 2,
         }}>
         {/* Left Icon */}
-        {showLeftIcon && leftIcon && (
+        {/* {showLeftIcon && leftIcon && (
           <Feather name={leftIcon} size={20} color="#6B7280" style={{ marginRight: 10 }} />
+        )} */}
+        {/* Left Icon */}
+        {showLeftIcon && (leftIconComponent || leftIcon) && (
+          <View style={{ marginRight: 10, alignItems: 'center', justifyContent: 'center' }}>
+            {leftIconComponent ? (
+              leftIconComponent
+            ) : (
+              <Feather name={leftIcon!} size={20} color="#6B7280" />
+            )}
+          </View>
         )}
 
         {/* Input */}

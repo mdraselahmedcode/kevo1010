@@ -5,10 +5,11 @@ import { Feather } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 
 type Props = {
-  value: string[]; // array of image URIs
+  value: string[];
   name: string;
   handler: (name: string, value: string[]) => void;
   label?: string;
+  placeholder?: string;
   required?: boolean;
   showLabel?: boolean;
   max?: number;
@@ -19,6 +20,7 @@ const ImageUploadInputField: React.FC<Props> = ({
   handler,
   name,
   label = 'Upload Photos',
+  placeholder,
   required = false,
   showLabel = true,
   max = 3,
@@ -59,7 +61,7 @@ const ImageUploadInputField: React.FC<Props> = ({
 
       <TouchableOpacity onPress={pickImage} activeOpacity={0.7} style={styles.uploadContainer}>
         <Text style={styles.uploadText}>
-          Drag & Drop Your File And{' '}
+          {placeholder ?? 'Drag & Drop Your File Or '}
           <Text style={{ color: '#FF6B00', textDecorationLine: 'underline' }}>Browse</Text>
         </Text>
       </TouchableOpacity>
