@@ -117,7 +117,7 @@ const JobCard = ({ job, onViewPress, onProfilePress }: Props) => {
             } else if (job.status === 'in-progress' || job.status === 'completed') {
               // Navigate to the assigned job details page
               router.push({
-                pathname: '/(customer-flow)/jobs/[jobId]/details',
+                pathname: '/(customer-flow)/jobs/[jobId]',
                 params: { jobId: job.id },
               });
             }

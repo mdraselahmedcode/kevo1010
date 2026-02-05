@@ -9,6 +9,7 @@ import PrimaryButton from '@/components/ui/PrimaryButton';
 import { Job, ProviderApplication, sampleJobs } from '@/app/(customer)/data/sampleJobs';
 import CustomHeader from '@/components/ui/CustomHeader';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import PrimaryCard from '@/components/ui/PrimaryCard';
 
 export default function ProvidersList() {
   const router = useRouter();
@@ -80,28 +81,30 @@ export default function ProvidersList() {
 
           {job.applications && job.applications.length > 0 ? (
             job.applications.map((ap: ProviderApplication, idx: number) => (
-              <View key={idx} className="mb-8">
-                <JobApplicationItem
-                  price={job.price}
-                  provider={ap.provider}
-                  rating={ap.rating}
-                  counterOffer={ap.counterOffer}
-                  status={ap.status}
-                  profileImage={ap.profileImage}
-                  verified={ap.verified}
-                  address={ap.address}
-                  distance={ap.distance}
-                  jobsCompleted={ap.jobsCompleted}
-                  applied
-                  onProfilePress={() => router.push(`../../providers/${ap.id}`)}
-                />
+              <View key={idx} className="">
+                <PrimaryCard className="mb-8">
+                  <JobApplicationItem
+                    price={job.price}
+                    provider={ap.provider}
+                    rating={ap.rating}
+                    counterOffer={ap.counterOffer}
+                    status={ap.status}
+                    profileImage={ap.profileImage}
+                    verified={ap.verified}
+                    address={ap.address}
+                    distance={ap.distance}
+                    jobsCompleted={ap.jobsCompleted}
+                    applied
+                    onProfilePress={() => router.push(`../../providers/${ap.id}`)}
+                  />
 
-                {/* Select Provider Button */}
-                <PrimaryButton
-                  className="mt-3"
-                  title="Select Provider"
-                  onPress={() => handleProviderPress(ap.provider, job.price)}
-                />
+                  {/* Select Provider Button */}
+                  <PrimaryButton
+                    className="mt-3"
+                    title="Select Provider"
+                    onPress={() => handleProviderPress(ap.provider, job.price)}
+                  />
+                </PrimaryCard>
               </View>
             ))
           ) : (

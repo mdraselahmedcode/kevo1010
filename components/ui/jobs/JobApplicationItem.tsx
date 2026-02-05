@@ -63,7 +63,7 @@ const JobApplicationItem = ({
               />
               {verified && (
                 <View className="ml-1" style={{ marginBottom: -14 }}>
-                  <VerifiedIcon size={28} color="#10B981" />
+                  <VerifiedIcon size={28} color="#00AFF5" />
                 </View>
               )}
             </TouchableOpacity>

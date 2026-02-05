@@ -3,12 +3,13 @@ import { View, ViewStyle, StyleProp } from 'react-native';
 type Props = {
   children: React.ReactNode;
   style?: StyleProp<ViewStyle>;
+  className?: string; // <-- added
 };
 
-export default function ShadowCard({ children, style }: Props) {
+export default function ShadowCard({ children, style, className }: Props) {
   return (
     <View
-      className="rounded-[8px] bg-background p-5"
+      className={`rounded-[8px] bg-background p-5 ${className ?? ''}`} // <-- merged className
       style={[
         {
           shadowColor: '#000',

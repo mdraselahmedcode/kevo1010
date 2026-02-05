@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import Svg, { Defs, RadialGradient, Stop, Rect } from 'react-native-svg';
+import { LocationIcon } from './icons';
 
 type SearchBarProps = {
   placeholder?: string;
@@ -73,7 +74,8 @@ export const SearchBar: React.FC<SearchBarProps & TextInputProps> = ({
 
         {/* 🔹 Input row */}
         <View style={{ flexDirection: 'row', alignItems: 'center', flex: 1 }}>
-          {showLeftIcon && <Ionicons name="location-outline" size={24} color="#FFFFFF" />}
+          {/* {showLeftIcon && <Ionicons name="location-outline" size={24} color="#FFFFFF" />} */}
+          {showLeftIcon && <LocationIcon size={24} color="#FFFFFF" />}
           <TextInput
             placeholder={placeholder}
             placeholderTextColor="rgba(255,255,255,0.9)"
