@@ -61,8 +61,8 @@ const ImageUploadInputField: React.FC<Props> = ({
 
       <TouchableOpacity onPress={pickImage} activeOpacity={0.7} style={styles.uploadContainer}>
         <Text style={styles.uploadText}>
-          {placeholder ?? 'Drag & Drop Your File Or '}
-          <Text style={{ color: '#FF6B00', textDecorationLine: 'underline' }}>Browse</Text>
+          {placeholder ?? 'Upload up to 3 images'}
+          <Text style={{ color: '#FF6B00', textDecorationLine: 'underline' }}> Browse</Text>
         </Text>
       </TouchableOpacity>
 

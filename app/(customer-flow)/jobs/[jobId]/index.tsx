@@ -38,12 +38,9 @@ export default function JobTrackingPage() {
     }
 
     router.push({
-      // pathname: '../../(customer-flow)/checkout/[jobId]', // include /index here
-      pathname: '../../(customer-flow)/checkout/[jobId]', // include /index here
+      pathname: '../checkout/[jobId]', // include /index here
       params: { jobId: job.id },
     });
-
-    // router.push(`../(customer-flow)/checkout/${job.id}`);
   };
 
   return (
@@ -118,7 +115,7 @@ export default function JobTrackingPage() {
           /> */}
 
           {/* Checkout Button at Bottom */}
-          <View className="mt-6">
+          <View className="mt-12">
             <PrimaryButton title="Go to Checkout" onPress={handleCheckout} />
           </View>
         </ScrollView>

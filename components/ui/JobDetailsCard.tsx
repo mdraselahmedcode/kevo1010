@@ -13,7 +13,7 @@ type Props = {
 
 export default function JobDetailsCard({ customerAddress, service, type }: Props) {
   return (
-    <ShadowCard className="mb-6">
+    <ShadowCard className="">
       <View className="flex justify-start gap-[10]">
         <TextBodySecondary
           text="Job Details"

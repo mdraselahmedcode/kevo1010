@@ -2,13 +2,14 @@ import React from 'react';
 import { View } from 'react-native';
 import { CheckInCircleIcon } from '@/components/icons/CheckInCircleIcon';
 import GradientBox from '@/components/ui/GradientBox';
+import { QuestionIcon } from '@/components/icons/QuestionIcon';
 
-type CheckInCircleWithBgProps = {
+type QuestionIconWithBgProps = {
   size?: number;
   iconSize?: number;
 };
 
-const CheckInCircleWithBg: React.FC<CheckInCircleWithBgProps> = ({
+const QuestionIconWithBg: React.FC<QuestionIconWithBgProps> = ({
   size = 36,
   iconSize = 24,
 }) => {
@@ -16,7 +17,7 @@ const CheckInCircleWithBg: React.FC<CheckInCircleWithBgProps> = ({
     <GradientBox
       size={size}
       colors={['#FFFFFF', '#D0DFFF']}
-      borderColor="#2C80EC"
+      borderColor="#FFB703"
     >
       {/* inner ring */}
       <View
@@ -38,10 +39,10 @@ const CheckInCircleWithBg: React.FC<CheckInCircleWithBgProps> = ({
           justifyContent: 'center',
         }}
       >
-        <CheckInCircleIcon size={iconSize} color="#2C80EC" />
+        <QuestionIcon size={iconSize} color="#2C80EC" />
       </View>
     </GradientBox>
   );
 };
 
-export default CheckInCircleWithBg;
+export default QuestionIconWithBg;
