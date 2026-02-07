@@ -14,6 +14,8 @@ export { ArrowLeftChevIcon } from './ArrowLeftChevIcon';
 export { OneManIcon } from './OneManIcon';
 export { ArrowRightTopIcon } from './ArrowRightTopIcon';
 export { VerifiedIcon } from './VerifiedIcon';
+export { CheckInCircleIcon } from './CheckInCircleIcon';
+
 // login and signup page
 export { EyeOpenIcon } from './EyeOpenIcon';
 export { EyeCloseIcon } from './EyeCloseIcon';

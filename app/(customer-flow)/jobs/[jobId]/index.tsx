@@ -38,8 +38,9 @@ export default function JobTrackingPage() {
     }
 
     router.push({
-      pathname: '../../(customer-flow)/checkout/[checkoutId]', // include /index here
-      params: { checkoutId: job.id },
+      // pathname: '../../(customer-flow)/checkout/[jobId]', // include /index here
+      pathname: '../../(customer-flow)/checkout/[jobId]', // include /index here
+      params: { jobId: job.id },
     });
 
     // router.push(`../(customer-flow)/checkout/${job.id}`);
