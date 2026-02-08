@@ -8,6 +8,8 @@ import {
   KeyboardAvoidingView,
   Platform,
   StyleSheet,
+  TouchableOpacity,
+  Pressable,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { ParticlesOverlay } from '@/components/ParticlesOverlay';
@@ -25,11 +27,14 @@ import { ServiceTabs, Service } from '@/components/ServiceTabs';
 import BushWithBgIcon from '@/components/ui/icons/BushWithBgIcon';
 import TextBodySmall from '@/components/ui/shared/TextBodySmall';
 import ArrowRightTopIconWithBg from '@/components/ui/icons/ArrowRightTopIconWithBg';
+import { useRouter } from 'expo-router';
 
 const { width } = Dimensions.get('window');
 const TOP_SECTION_HEIGHT = 120;
 
 const Home = () => {
+  const router = useRouter();
+
   const [location, setLocation] = useState('');
 
   const services: Service[] = [
@@ -128,47 +133,47 @@ const Home = () => {
             style={{
               marginTop: 30,
               backgroundColor: 'transparent',
-              paddingHorizontal: 20, // Move padding to parent
+              paddingHorizontal: 20,
             }}>
             {/* Wrapper to ensure shadow is visible */}
             <View
               style={{
-                // This wrapper ensures shadow has space to show
-                marginBottom: 4, // Space for shadow to be visible
+                shadowColor: '#000',
+                shadowOffset: { width: 0, height: 0 },
+                shadowOpacity: 0.25,
+                shadowRadius: 2,
+                elevation: 2,
+                borderRadius: 12,
               }}>
-              <View
-                className="flex flex-row items-center gap-3 rounded-xl bg-background"
-                style={{
-                  paddingVertical: 14,
-                  paddingHorizontal: 11,
-                  shadowColor: '#000',
-                  shadowOffset: { width: 0, height: 0 },
-                  shadowOpacity: 0.25,
-                  shadowRadius: 2,
-                  elevation: 2,
-                }}>
-                <BushWithBgIcon size={36} iconSize={24} color="#2C80EC" />
-
-                {/* 👇 THIS is the key */}
-                <View style={{ flex: 1, justifyContent: 'center' }}>
-                  <TextBodySecondary
+              <Pressable
+                android_ripple={{ color: '#E6F0FF' }}
+                onPress={() => router.push('../(customer-flow)/service-history')}
+                style={{ borderRadius: 12, overflow: 'hidden' }}>
+                {({ pressed }) => (
+                  <View
+                    className="flex flex-row items-center gap-3 bg-background"
                     style={{
-                      textAlign: 'left',
-                      fontFamily: 'Nunito-SemiBold',
-                    }}
-                    text="Service History"
-                  />
-                  <TextBodySmall
-                    style={{
-                      textAlign: 'left',
-                    }}
-                    text="View past jobs and invoice"
-                  />
-                </View>
+                      paddingVertical: 14,
+                      paddingHorizontal: 11,
+                      backgroundColor: pressed ? '#F5F9FF' : '#FFFFFF',
+                    }}>
+                    <BushWithBgIcon size={36} iconSize={24} color="#2C80EC" />
 
-                {/* 👉 Pushed automatically to the right */}
-                <ArrowRightTopIconWithBg iconSize={24} size={42} color="#fff" />
-              </View>
+                    <View style={{ flex: 1, justifyContent: 'center' }}>
+                      <TextBodySecondary
+                        style={{ textAlign: 'left', fontFamily: 'Nunito-SemiBold' }}
+                        text="Service History"
+                      />
+                      <TextBodySmall
+                        style={{ textAlign: 'left' }}
+                        text="View past jobs and invoice"
+                      />
+                    </View>
+
+                    <ArrowRightTopIconWithBg iconSize={24} size={42} color="#fff" />
+                  </View>
+                )}
+              </Pressable>
             </View>
           </View>
         </ScrollView>

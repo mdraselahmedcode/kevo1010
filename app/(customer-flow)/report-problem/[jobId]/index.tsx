@@ -80,7 +80,7 @@ export default function ReportProblemPage() {
 
       <SafeAreaView className="flex-1 bg-background" edges={['top', 'bottom']}>
         <ScrollView contentContainerStyle={{ padding: 20, paddingTop: 0 }}>
-          <View className="flex gap-8">
+          <View className="mb-6 flex gap-8 ">
             {/* Warning / Info */}
             <PrimaryCard
               style={{ backgroundColor: '#FFB70311', borderWidth: 1, borderColor: '#FFB703' }}>
@@ -139,7 +139,7 @@ export default function ReportProblemPage() {
               showLabel
             />
 
-            <View className="gap-8">
+            <View className="gap-4">
               {/* Submit Button */}
               <PrimaryButton title="Submit Dispute" className=" w-full" onPress={handleSubmit} />
               <OutlineButton title="Cancel" className="mb-6 w-full" onPress={() => router.back()} />

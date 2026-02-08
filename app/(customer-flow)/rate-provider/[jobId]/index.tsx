@@ -166,7 +166,7 @@ export default function RateProviderPage() {
             </View>
 
             {/* Action Buttons */}
-            <View className="gap- mt-4">
+            <View className="mt-4 gap-4">
               <PrimaryButton title="Submit Review" onPress={handleSubmit} />
               <OutlineButton
                 title="Skip for now"

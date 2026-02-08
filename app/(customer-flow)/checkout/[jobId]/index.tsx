@@ -97,56 +97,55 @@ export default function CheckoutPage() {
 
       <SafeAreaView className="flex-1 bg-background" edges={['top', 'bottom']}>
         <ScrollView contentContainerStyle={{ padding: 20, paddingTop: 0 }}>
-          <View className="flex items-center gap-8 ">
-            <PrimaryCard className="flex items-center justify-center">
-              <CheckInCircleWithBg />
+          <View className="mb-6 gap-12">
+            <View className="flex items-center gap-8 ">
+              <PrimaryCard className="flex items-center justify-center">
+                <CheckInCircleWithBg />
 
-              <TextBodySecondary text={title} className="mt-2 font-nunitoSemi" />
+                <TextBodySecondary text={title} className="mt-2 font-nunitoSemi" />
 
-              <TextBodySmall text={message} numberOfLines={2} className="text-center" />
-            </PrimaryCard>
+                <TextBodySmall text={message} numberOfLines={2} className="text-center" />
+              </PrimaryCard>
 
-            <View className="flex w-full gap-2">
-              <View className="flex flex-row justify-between">
-                <InputLabel text="Before Image" />
-
-                <TextBodySmall text={beforeImage ? formatDateTime(beforeImage.uploadedAt) : ''} />
-              </View>
-
-              <JobImage uri={beforeImage?.url} />
-            </View>
-
-            {job.status === 'completed' && (
               <View className="flex w-full gap-2">
                 <View className="flex flex-row justify-between">
-                  <InputLabel text="After Image" />
-                  <TextBodySmall text={afterImage ? formatDateTime(afterImage.uploadedAt) : ''} />
+                  <InputLabel text="Before Image" />
+
+                  <TextBodySmall text={beforeImage ? formatDateTime(beforeImage.uploadedAt) : ''} />
                 </View>
-                <JobImage uri={afterImage?.url} />
+
+                <JobImage uri={beforeImage?.url} />
               </View>
-            )}
 
-            <View>
-              <InputLabel text="Provider's Note:" className="mb-2" />
-              <PrimaryCard className="flex items-center justify-center ">
-                <TextBodySmall
-                  text={job.providerNote ?? 'No note provided by the provider.'}
-                  // style={{textAlign: 'left'}}
-                />
-              </PrimaryCard>
+              {job.status === 'completed' && (
+                <View className="flex w-full gap-2">
+                  <View className="flex flex-row justify-between">
+                    <InputLabel text="After Image" />
+                    <TextBodySmall text={afterImage ? formatDateTime(afterImage.uploadedAt) : ''} />
+                  </View>
+                  <JobImage uri={afterImage?.url} />
+                </View>
+              )}
+
+              <View>
+                <InputLabel text="Provider's Note:" className="mb-2" />
+                <PrimaryCard className="flex items-center justify-center ">
+                  <TextBodySmall
+                    text={job.providerNote ?? 'No note provided by the provider.'}
+                    // style={{textAlign: 'left'}}
+                  />
+                </PrimaryCard>
+              </View>
             </View>
+            <View className="w-full gap-4 ">
+              <PrimaryButton
+                title="Confirm & Complete Job"
+                className="w-full"
+                onPress={handleJobCompletion}
+              />
 
-            <PrimaryButton
-              title="Confirm & Complete Job"
-              className="mt-2 w-full"
-              onPress={handleJobCompletion}
-            />
-
-            <OutlineButton
-              title="Report a Problem"
-              className="my-2 w-full"
-              onPress={handleReport}
-            />
+              <OutlineButton title="Report a Problem" className=" w-full" onPress={handleReport} />
+            </View>
           </View>
         </ScrollView>
       </SafeAreaView>

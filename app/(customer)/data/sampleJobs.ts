@@ -160,9 +160,6 @@ export const sampleJobs: Job[] = [
       'https://as1.ftcdn.net/v2/jpg/00/61/14/36/1000_F_61143631_8MQwdPKZoMo9MAPTr5GwXcRJGZILSDPQ.jpg',
     ],
     providerBeforeAfterImages: {
-      // before: [
-      //   'https://as1.ftcdn.net/v2/jpg/01/06/29/66/1000_F_106296662_GdtuGahePsFJCOqTvFTLFOXCU09fYVae.jpg',
-      // ],
 
       before: [
         {
@@ -200,14 +197,6 @@ export const sampleJobs: Job[] = [
     images: [
       'https://as1.ftcdn.net/v2/jpg/00/61/14/36/1000_F_61143631_8MQwdPKZoMo9MAPTr5GwXcRJGZILSDPQ.jpg',
     ],
-    // providerBeforeAfterImages: {
-    //   before: [
-    //     'https://as1.ftcdn.net/v2/jpg/01/06/29/66/1000_F_106296662_GdtuGahePsFJCOqTvFTLFOXCU09fYVae.jpg',
-    //   ],
-    //   after: [
-    //     'https://as1.ftcdn.net/v2/jpg/12/24/77/88/1000_F_1224778856_9Kc6TAj0klv6K9z0G6NrodmAgRel9WiQ.jpg',
-    //   ],
-    // },
 
     providerBeforeAfterImages: {
       before: [
