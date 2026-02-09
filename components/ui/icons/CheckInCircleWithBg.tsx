@@ -8,16 +8,9 @@ type CheckInCircleWithBgProps = {
   iconSize?: number;
 };
 
-const CheckInCircleWithBg: React.FC<CheckInCircleWithBgProps> = ({
-  size = 36,
-  iconSize = 24,
-}) => {
+const CheckInCircleWithBg: React.FC<CheckInCircleWithBgProps> = ({ size = 36, iconSize = 24 }) => {
   return (
-    <GradientBox
-      size={size}
-      colors={['#FFFFFF', '#D0DFFF']}
-      borderColor="#2C80EC"
-    >
+    <GradientBox size={size} colors={['#FFFFFF', '#D0DFFF']} borderColor="#2C80EC">
       {/* inner ring */}
       <View
         style={{
@@ -36,8 +29,7 @@ const CheckInCircleWithBg: React.FC<CheckInCircleWithBgProps> = ({
           borderRadius: size,
           alignItems: 'center',
           justifyContent: 'center',
-        }}
-      >
+        }}>
         <CheckInCircleIcon size={iconSize} color="#2C80EC" />
       </View>
     </GradientBox>

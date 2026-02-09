@@ -14,7 +14,7 @@ const JobList = ({ jobs, onViewPress }: Props) => {
     <FlatList
       data={jobs}
       keyExtractor={(item) => item.id}
-      contentContainerStyle={{ padding: 20, paddingVertical: 30, gap: 30 }}
+      contentContainerStyle={{ padding: 20, paddingVertical: 20, gap: 30 }}
       renderItem={({ item }) => <JobCard job={item} onViewPress={() => onViewPress?.(item)} />}
     />
   );

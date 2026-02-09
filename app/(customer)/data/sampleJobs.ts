@@ -1,8 +1,9 @@
-
 // FINAL JOB STATUS ENUM
 export type JobStatus = 'created' | 'in-progress' | 'completed';
 
 
+// Customer completion status (Customer side)
+export type CustomerCompletionStatus = 'pending' | 'confirmed' | 'reported';
 
 // Provider applications (before selection)
 export type ProviderApplication = {
@@ -43,16 +44,18 @@ export type Job = {
   date: string;
   time: string;
   price: number;
+  serviceCharge?: number;
   status: JobStatus;
+  providerDone?: boolean;
+  customerRating?: number; 
+  customerCompletionStatus?: CustomerCompletionStatus; // customer confirmation
+
   type: JobType;
   customerAddress: string;
   assignedProvider?: AssignedProvider;
   applications?: ProviderApplication[];
   images?: string[];
-  // providerBeforeAfterImages?: {
-  //   before: string[];
-  //   after: string[];
-  // };
+
   providerBeforeAfterImages?: {
     before: JobImageEntry[];
     after: JobImageEntry[];
@@ -140,6 +143,7 @@ export const sampleJobs: Job[] = [
     date: '02/05/2026',
     time: '10:00 AM',
     price: 180,
+    serviceCharge: 20,
     status: 'in-progress',
     type: 'scheduled',
     customerAddress: '789 Pine St, Lansing, MI 48933',
@@ -160,27 +164,28 @@ export const sampleJobs: Job[] = [
       'https://as1.ftcdn.net/v2/jpg/00/61/14/36/1000_F_61143631_8MQwdPKZoMo9MAPTr5GwXcRJGZILSDPQ.jpg',
     ],
     providerBeforeAfterImages: {
-
       before: [
         {
           url: 'https://as1.ftcdn.net/v2/jpg/01/06/29/66/1000_F_106296662_GdtuGahePsFJCOqTvFTLFOXCU09fYVae.jpg',
           uploadedAt: '2026-02-03T14:10:00Z',
         },
       ],
-
       after: [],
     },
     providerNote: 'Started clearing the driveway, half done so far.',
   },
 
-  // Job 4: Completed, provider finished job, before/after images available
+  // Job 4: Provider finished, waiting for customer confirmation
   {
     id: '4',
     service: 'Lawn Mowing',
     date: '02/03/2026',
     time: '2:00 PM',
     price: 120,
-    status: 'completed',
+    serviceCharge: 30,
+    status: 'in-progress', // still in-progress until customer confirms
+    providerDone: true,
+    customerCompletionStatus: 'pending', // ⚡ added
     type: 'scheduled',
     customerAddress: '321 Maple St, Grand Rapids, MI 49503',
     assignedProvider: {
@@ -197,7 +202,6 @@ export const sampleJobs: Job[] = [
     images: [
       'https://as1.ftcdn.net/v2/jpg/00/61/14/36/1000_F_61143631_8MQwdPKZoMo9MAPTr5GwXcRJGZILSDPQ.jpg',
     ],
-
     providerBeforeAfterImages: {
       before: [
         {
@@ -212,7 +216,58 @@ export const sampleJobs: Job[] = [
         },
       ],
     },
-
-    providerNote: 'Mowed the lawn and trimmed edges. Ready for review.',
+    providerNote: 'Provider completed the lawn. Waiting for your confirmation.',
   },
+
+  // Job 5: Fully completed, customer confirmed
+  {
+    id: '5',
+    service: 'Garden Cleanup',
+    date: '02/01/2026',
+    time: '11:00 AM',
+    price: 200,
+    serviceCharge: 25,
+    status: 'completed',
+    providerDone: true,
+    customerCompletionStatus: 'confirmed', // ⚡ added
+    type: 'scheduled',
+    customerAddress: '555 Pine St, Grand Rapids, MI',
+    customerRating: 5,
+    assignedProvider: {
+      id: 'assigned-prov-3',
+      provider: 'Samuel Green',
+      rating: 4.6,
+      profileImage: 'https://randomuser.me/api/portraits/men/5.jpg',
+      verified: true,
+      address: '789 Provider Lane, Grand Rapids, MI',
+      distance: '8 km',
+      jobsCompleted: 50,
+      phoneNumber: '+17345550333',
+    },
+    images: [
+      'https://as1.ftcdn.net/v2/jpg/12/24/77/88/1000_F_1224778856_9Kc6TAj0klv6K9z0G6NrodmAgRel9WiQ.jpg',
+    ],
+    providerBeforeAfterImages: {
+      before: [
+        {
+          url: 'https://as1.ftcdn.net/v2/jpg/01/06/29/66/1000_F_106296662_GdtuGahePsFJCOqTvFTLFOXCU09fYVae.jpg',
+          uploadedAt: '2026-02-01T10:00:00Z',
+        },
+      ],
+      after: [
+        {
+          url: 'https://as1.ftcdn.net/v2/jpg/12/24/77/88/1000_F_1224778856_9Kc6TAj0klv6K9z0G6NrodmAgRel9WiQ.jpg',
+          uploadedAt: '2026-02-01T12:00:00Z',
+        },
+      ],
+    },
+    providerNote: 'Cleanup finished and confirmed by customer.',
+  },
+
 ];
+
+
+
+
+
+

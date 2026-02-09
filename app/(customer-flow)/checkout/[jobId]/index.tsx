@@ -30,6 +30,10 @@ export default function CheckoutPage() {
     );
   }
 
+  const isProviderDone = job.providerDone === true;
+  const canConfirmOrReport =
+    job.providerDone === true && job.customerCompletionStatus !== 'confirmed';
+
   const beforeImage = job.providerBeforeAfterImages?.before?.[0];
 
   const afterImage = job.providerBeforeAfterImages?.after?.[0];
@@ -97,9 +101,9 @@ export default function CheckoutPage() {
 
       <SafeAreaView className="flex-1 bg-background" edges={['top', 'bottom']}>
         <ScrollView contentContainerStyle={{ padding: 20, paddingTop: 0 }}>
-          <View className="mb-6 gap-12">
+          <View className="mb-6 gap-12  ">
             <View className="flex items-center gap-8 ">
-              <PrimaryCard className="flex items-center justify-center">
+              <PrimaryCard className="flex w-full items-center justify-center ">
                 <CheckInCircleWithBg />
 
                 <TextBodySecondary text={title} className="mt-2 font-nunitoSemi" />
@@ -117,7 +121,7 @@ export default function CheckoutPage() {
                 <JobImage uri={beforeImage?.url} />
               </View>
 
-              {job.status === 'completed' && (
+              {isProviderDone && (
                 <View className="flex w-full gap-2">
                   <View className="flex flex-row justify-between">
                     <InputLabel text="After Image" />
@@ -127,7 +131,7 @@ export default function CheckoutPage() {
                 </View>
               )}
 
-              <View>
+              <View className="w-full">
                 <InputLabel text="Provider's Note:" className="mb-2" />
                 <PrimaryCard className="flex items-center justify-center ">
                   <TextBodySmall
@@ -137,15 +141,22 @@ export default function CheckoutPage() {
                 </PrimaryCard>
               </View>
             </View>
-            <View className="w-full gap-4 ">
-              <PrimaryButton
-                title="Confirm & Complete Job"
-                className="w-full"
-                onPress={handleJobCompletion}
-              />
 
-              <OutlineButton title="Report a Problem" className=" w-full" onPress={handleReport} />
-            </View>
+            {canConfirmOrReport && (
+              <View className="w-full gap-4 ">
+                <PrimaryButton
+                  title="Confirm & Complete Job"
+                  className="w-full"
+                  onPress={handleJobCompletion}
+                />
+
+                <OutlineButton
+                  title="Report a Problem"
+                  className=" w-full"
+                  onPress={handleReport}
+                />
+              </View>
+            )}
           </View>
         </ScrollView>
       </SafeAreaView>

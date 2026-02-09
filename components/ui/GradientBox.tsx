@@ -1,48 +1,52 @@
 import React from 'react';
-import { ViewStyle, StyleProp, ColorValue } from 'react-native';
+import { View, ViewStyle, StyleProp, ColorValue } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 type GradientBoxProps = {
-    size: number;
-    colors: readonly [ColorValue, ColorValue, ...ColorValue[]];
-    borderColor?: string;
-    borderRadius?: number;
-    children?: React.ReactNode;
-    style?: StyleProp<ViewStyle>;
+  size: number;
+  colors: readonly [ColorValue, ColorValue, ...ColorValue[]];
+  locations?: readonly [number, number, ...number[]]; // ✅ tuple with at least 2 numbers
+  borderRadius?: number;
+  padding?: number; // thickness of the gradient border
+  children?: React.ReactNode;
+  style?: StyleProp<ViewStyle>;
 };
 
 export default function GradientBox({
-    size,
-    colors,
-    borderColor = '#2C80EC',
-    borderRadius = 8,
-    children,
-    style,
+  size,
+  colors,
+  locations,
+  borderRadius,
+  padding = 3,
+  children,
+  style,
 }: GradientBoxProps) {
-    return (
-        <LinearGradient
-            colors={colors}
-            start={{ x: 0.5, y: 0 }}
-            end={{ x: 0.5, y: 1 }}
-            style={[
-                {
-                    height: size,
-                    width: size,
-                    borderRadius,
-                    borderWidth: 1,
-                    borderColor,
-                    position: 'relative',
+  const radius = borderRadius ?? size / 2;
 
-                    // inset highlight simulation
-                    shadowColor: '#FFFFFF',
-                    shadowOffset: { width: 0, height: 2 },
-                    shadowOpacity: 0.4,
-                    shadowRadius: 0,
-                },
-                style,
-            ]}
-        >
-            {children}
-        </LinearGradient>
-    );
+  return (
+    <LinearGradient
+      colors={colors}
+      locations={locations}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 1, y: 1 }}
+      style={[
+        {
+          width: size,
+          height: size,
+          borderRadius: radius,
+          padding,
+        },
+        style,
+      ]}>
+      <View
+        style={{
+          flex: 1,
+          borderRadius: radius - padding,
+          overflow: 'hidden',
+          backgroundColor: '#fff',
+        }}>
+        {children}
+      </View>
+    </LinearGradient>
+  );
 }

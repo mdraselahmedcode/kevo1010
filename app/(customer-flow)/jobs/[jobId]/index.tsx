@@ -32,10 +32,10 @@ export default function JobTrackingPage() {
   }
 
   const handleCheckout = () => {
-    if (job.status !== 'completed') {
-      alert('Your provider is still working on this job. You can review it once completed.');
-      return; // stop navigation
-    }
+    // if (job.status !== 'completed') {
+    //   alert('Your provider is still working on this job. You can review it once completed.');
+    //   return; // stop navigation
+    // }
 
     router.push({
       pathname: '../checkout/[jobId]', // include /index here
@@ -74,9 +74,12 @@ export default function JobTrackingPage() {
           {job.assignedProvider && (
             <ShadowCard className="mb-6 px-4 py-4">
               <AssignedProviderCard
+                jobId={job.id}
                 provider={job.assignedProvider}
                 jobPrice={job.price}
                 jobStatus={job.status}
+                providerDone={job.providerDone}
+                customerCompletionStatus={job.customerCompletionStatus}
               />
 
               {/* Buttons Row */}

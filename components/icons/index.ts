@@ -15,6 +15,8 @@ export { OneManIcon } from './OneManIcon';
 export { ArrowRightTopIcon } from './ArrowRightTopIcon';
 export { VerifiedIcon } from './VerifiedIcon';
 export { CheckInCircleIcon } from './CheckInCircleIcon';
+export  { StarIcon } from './StarIcon';
+export { DownLoadIcon } from './DownloadIcon';
 
 // login and signup page
 export { EyeOpenIcon } from './EyeOpenIcon';

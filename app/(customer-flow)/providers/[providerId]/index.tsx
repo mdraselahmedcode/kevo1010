@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ScrollView, Image, StatusBar } from 'react-native';
+import { View, ScrollView, Image, StatusBar, Text } from 'react-native';
 import { useLocalSearchParams, Stack } from 'expo-router';
 import TextBodySecondary from '@/components/ui/shared/TextBodySecondary';
 import TextBodySmall from '@/components/ui/shared/TextBodySmall';
@@ -11,9 +11,18 @@ import {
 } from '@/app/(customer)/data/sampleJobs';
 import CustomHeader from '@/components/ui/CustomHeader';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { VerifiedIcon } from '@/components/icons';
+import { StarIcon, VerifiedIcon } from '@/components/icons';
+import ShadowCard from '@/components/ui/ShadowCard';
+import AvatarWithBadge from '@/components/ui/shared/AvatarWithBadge';
+import HeaderPrimary from '@/components/ui/shared/HeaderPrimary';
+import InputLabel from '@/components/ui/shared/InputLabel';
+import BulletListSection from '@/components/ui/shared/BulletListSection';
+import ReviewSection from '@/components/ui/review/ReviewSection';
+import { mockReviews } from '@/app/(customer)/data/reviewSample';
+import { useRouter } from 'expo-router';
 
 export default function ProviderProfilePage() {
+  const router = useRouter();
   const { providerId } = useLocalSearchParams<{ providerId: string }>();
 
   // Search for provider in both applications and assignedProvider
@@ -53,45 +62,127 @@ export default function ProviderProfilePage() {
       />
 
       <SafeAreaView className="flex-1 bg-background" edges={['top', 'bottom']}>
-        <ScrollView className="flex-1 px-4 pb-10 pt-4" showsVerticalScrollIndicator={false}>
-          {/* Avatar */}
-          {provider.profileImage && (
-            <Image
-              source={{ uri: provider.profileImage }}
-              className="mb-4 h-28 w-28 self-center rounded-full"
-              resizeMode="cover"
-            />
-          )}
+        <ScrollView
+          className="mt-1 flex-1 px-5 pb-10"
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingBottom: 20 }} // 🔑 extra space at bottom
+        >
+          <View className="flex gap-8">
+            {/* Avatar */}
+            {provider.profileImage && (
+              <ShadowCard className="bg-white">
+                <View style={{ flex: 1 }}>
+                  {/* Avatar + Total Jobs */}
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      paddingVertical: 12,
+                    }}>
+                    {/* Avatar */}
+                    <AvatarWithBadge
+                      imageUri={provider.profileImage}
+                      showVerified={provider.verified}
+                      size={80}
+                      badgeSize={20}
+                      gradientColors={
+                        ['#FAFF0A', '#FEAD4E', '#ED1B1BF7', '#FB1274', '#F109DA'] as const
+                      }
+                      gradientLocations={[0, 0.5, 0.7, 0.8, 1] as const}
+                      badgeTranslateX={2.7}
+                      badgeTranslateY={2.7}
+                    />
 
-          {/* Name + Verified */}
-          <View className="mb-2 flex-row items-center justify-center">
-            <TextBodySecondary className="text-2xl font-bold" text={provider.provider} />
-            {provider.verified && (
-              <View className="ml-2">
-                <VerifiedIcon size={24} color="#10B981" />
-              </View>
+                    {/* Spacer */}
+                    <View style={{ width: 38 }} />
+
+                    {/* Text content */}
+                    <View style={{ flex: 1 }}>
+                      <HeaderPrimary
+                        text={`${provider.jobsCompleted ?? 0}`}
+                        style={{ marginBottom: 4, textAlign: 'center' }}
+                      />
+                      <InputLabel
+                        text="Total Job Completed"
+                        style={{
+                          textAlign: 'center',
+                          paddingBottom: 4,
+                          borderBottomWidth: 1,
+                          borderBottomColor: '#94A3B8',
+                          color: '#323135',
+                        }}
+                      />
+                    </View>
+                  </View>
+
+                  {/* Provider Info + Rating */}
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                      alignItems: 'flex-end', // align left and right blocks to top
+                      paddingVertical: 12,
+                    }}>
+                    {/* Provider Info (Left) */}
+                    <View>
+                      <InputLabel
+                        text={provider.provider}
+                        style={{ fontFamily: 'Nunito-SemiBold', color: '#323135', fontSize: 16 }}
+                      />
+                      <TextBodySecondary
+                        text="USA"
+                        style={{ fontFamily: 'Nunito-SemiBold', fontSize: 14, color: '#6B7280' }}
+                      />
+                    </View>
+
+                    {/* Rating (Right) */}
+                    <View style={{ alignItems: 'flex-end' }}>
+                      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+                        <StarIcon color="#FFB703" size={24} style={{ marginBottom: -5 }} />
+                        <HeaderPrimary
+                          text={`${provider.rating ?? 0}`}
+                          style={{ marginBottom: 0 }}
+                        />
+                      </View>
+                      <InputLabel
+                        text="Average Rating"
+                        style={{ color: '#323135', textAlign: 'right' }}
+                      />
+                    </View>
+                  </View>
+                </View>
+              </ShadowCard>
             )}
-          </View>
 
-          {/* Rating */}
-          <TextBodySmall
-            className="mb-2 text-center text-gray-700"
-            text={`${provider.rating.toFixed(1)} ⭐ (${provider.jobsCompleted ?? 0} jobs completed)`}
-          />
-
-          {/* Address + Distance */}
-          {provider.address && (
-            <TextBodySmall
-              className="mb-4 text-center text-gray-600"
-              text={`${provider.address}${provider.distance ? ` • ${provider.distance} away` : ''}`}
+            <BulletListSection
+              label="Description"
+              items={[
+                'This service is provided by a licensed and insured professional specializing in snow removal and landscaping for residential and commercial properties.',
+                'Snow plowing, shoveling, and de-icing for driveways, sidewalks, and parking areas.',
+                'Timely job completion with before-and-after photos for full transparency and customer confidence.',
+              ]}
             />
-          )}
 
-          {/* Optional: Actions */}
-          <PrimaryButton
-            title="Hire this Provider"
-            onPress={() => alert(`Hire ${provider.provider} functionality here`)}
-          />
+            <BulletListSection
+              label="Service Information"
+              items={[
+                'Snow Plowing',
+                'Snow Shoveling',
+                'Salting / De-icing',
+                'Lawn Mowing',
+                'Landscaping',
+                'Seasonal Contracts',
+              ]}
+            />
+
+            {/* Review */}
+            <ReviewSection
+              reviews={mockReviews.slice(0, 2)}
+              onSeeAll={() => {
+                router.push(`./${providerId}/reviews`);
+              }}
+            />
+          </View>
         </ScrollView>
       </SafeAreaView>
     </>

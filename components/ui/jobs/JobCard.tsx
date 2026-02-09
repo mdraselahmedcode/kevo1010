@@ -30,11 +30,14 @@ const JobCard = ({ job, onViewPress, onProfilePress }: Props) => {
       const ap = job.assignedProvider;
       return (
         <JobApplicationItem
+          jobId={job.id}
           price={job.price}
           provider={ap.provider}
           rating={ap.rating}
           counterOffer={ap.agreedPrice}
           status={job.status}
+          providerDone={job.providerDone} // ✅ add this
+          customerCompletionStatus={job.customerCompletionStatus} // ✅ add this
           profileImage={ap.profileImage}
           verified={ap.verified}
           address={ap.address}
@@ -114,7 +117,11 @@ const JobCard = ({ job, onViewPress, onProfilePress }: Props) => {
                 pathname: '/(customer-flow)/jobs/[jobId]/providers',
                 params: { jobId: job.id },
               });
-            } else if (job.status === 'in-progress' || job.status === 'completed') {
+            } else if (
+              job.status === 'in-progress' ||
+              job.status === 'completed' ||
+              job.status === 'completed'
+            ) {
               // Navigate to the assigned job details page
               router.push({
                 pathname: '/(customer-flow)/jobs/[jobId]',

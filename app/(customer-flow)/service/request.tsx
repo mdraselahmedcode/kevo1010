@@ -12,6 +12,7 @@ import ImageUploadInputField from '@/components/ui/inputs/ImageUploadInputField'
 import { validateFields } from '@/utils/formValidate';
 import { ClockIcon } from '@/components/icons/ClockIcon';
 import { CalendarIcon } from '@/components/icons/CalendarIcon';
+
 export default function ServiceRequest() {
   const { title } = useLocalSearchParams<{ title: string }>();
   const { fields, setFields } = CustomerRequireServiceFields();
