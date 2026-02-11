@@ -1,7 +1,7 @@
 // app/(auth)/signup.tsx
 
 import React, { useEffect, useState } from 'react';
-import { View, TouchableOpacity, Text } from 'react-native';
+import { View, TouchableOpacity, Text, StatusBar } from 'react-native';
 
 import HeaderPrimary from '@/components/ui/shared/HeaderPrimary';
 import InputLabel from '@/components/ui/shared/InputLabel';
@@ -73,135 +73,139 @@ export default function ServiceProviderSignup() {
   }, [location]);
 
   return (
-    <FormLayout>
-      <HeaderPrimary text="Create Your Account" />
+    <>
+      <StatusBar translucent barStyle="dark-content" />
 
-      {/* Name */}
-      <View className="mb-4">
-        <InputField
-          label="Full Name"
-          placeHolder="Enter your name"
-          keyboard="default"
-          name="name"
-          value={(getField('name')?.value as string) || ''}
-          handler={(_, value) => updateField('name', value)}
-          error={!!getField('name')?.error}
-        />
-      </View>
+      <FormLayout>
+        <HeaderPrimary text="Create Your Account" />
 
-      {/* Email */}
-      <View className="mb-4">
-        <InputField
-          label="Email Address"
-          placeHolder="Enter email address"
-          keyboard="email-address"
-          name="email"
-          value={(getField('email')?.value as string) || ''}
-          handler={(_, value) => updateField('email', value)}
-          error={!!getField('email')?.error}
-        />
-      </View>
+        {/* Name */}
+        <View className="mb-4">
+          <InputField
+            label="Full Name"
+            placeHolder="Enter your name"
+            keyboard="default"
+            name="name"
+            value={(getField('name')?.value as string) || ''}
+            handler={(_, value) => updateField('name', value)}
+            error={!!getField('name')?.error}
+          />
+        </View>
 
-      {/* Password */}
-      <View className="mb-4">
-        <PasswordInput
-          label="Password"
-          placeHolder="Password"
-          name="password"
-          value={(getField('password')?.value as string) || ''}
-          handler={(_, value) => updateField('password', value)}
-          error={!!getField('password')?.error}
-          keyboard="default"
-        />
-      </View>
+        {/* Email */}
+        <View className="mb-4">
+          <InputField
+            label="Email Address"
+            placeHolder="Enter email address"
+            keyboard="email-address"
+            name="email"
+            value={(getField('email')?.value as string) || ''}
+            handler={(_, value) => updateField('email', value)}
+            error={!!getField('email')?.error}
+          />
+        </View>
 
-      {/* Confirm Password */}
-      <View className="mb-7">
-        <PasswordInput
-          label="Confirm Password"
-          placeHolder="Confirm password"
-          name="confirmPassword"
-          value={(getField('confirmPassword')?.value as string) || ''}
-          handler={(_, value) => updateField('confirmPassword', value)}
-          error={!!getField('confirmPassword')?.error}
-          keyboard="default"
-        />
-      </View>
+        {/* Password */}
+        <View className="mb-4">
+          <PasswordInput
+            label="Password"
+            placeHolder="Password"
+            name="password"
+            value={(getField('password')?.value as string) || ''}
+            handler={(_, value) => updateField('password', value)}
+            error={!!getField('password')?.error}
+            keyboard="default"
+          />
+        </View>
 
-      {/* ZIP Code */}
-      <View className="mb-7">
-        <InputField
-          label="ZIP Code"
-          placeHolder="Enter ZIP Code"
-          name="zipCode"
-          value={(getField('zipCode')?.value as string) || ''}
-          handler={(_, value) => updateField('zipCode', value)}
-          error={!!getField('zipCode')?.error}
-          keyboard="number-pad"
-        />
-      </View>
+        {/* Confirm Password */}
+        <View className="mb-7">
+          <PasswordInput
+            label="Confirm Password"
+            placeHolder="Confirm password"
+            name="confirmPassword"
+            value={(getField('confirmPassword')?.value as string) || ''}
+            handler={(_, value) => updateField('confirmPassword', value)}
+            error={!!getField('confirmPassword')?.error}
+            keyboard="default"
+          />
+        </View>
 
-      {/* terms and condition */}
-      <View className="mb-7">
-        <InputCheckbox
-          label={
-            <Text>
-              Agree with <Text style={{ color: '#2C80EC' }}>Terms & Conditions</Text>
-            </Text>
+        {/* ZIP Code */}
+        <View className="mb-7">
+          <InputField
+            label="ZIP Code"
+            placeHolder="Enter ZIP Code"
+            name="zipCode"
+            value={(getField('zipCode')?.value as string) || ''}
+            handler={(_, value) => updateField('zipCode', value)}
+            error={!!getField('zipCode')?.error}
+            keyboard="number-pad"
+          />
+        </View>
+
+        {/* terms and condition */}
+        <View className="mb-7">
+          <InputCheckbox
+            label={
+              <Text>
+                Agree with <Text style={{ color: '#2C80EC' }}>Terms & Conditions</Text>
+              </Text>
+            }
+            name="agree"
+            value={!!getField('agree')?.value}
+            error={!!getField('agree')?.error}
+            handler={(_, value) => updateField('agree', value)}
+          />
+        </View>
+
+        {/* <PrimaryButton title="Sign Up" onPress={handleServiceProviderSignupPress} /> */}
+
+        <PrimaryButton
+          title={
+            locationLoading
+              ? 'Fetching Location...' // meaningful during loading
+              : !location
+                ? 'Waiting for Location...' // optional fallback
+                : 'Sign Up' // ready
           }
-          name="agree"
-          value={!!getField('agree')?.value}
-          error={!!getField('agree')?.error}
-          handler={(_, value) => updateField('agree', value)}
+          onPress={handleServiceProviderSignupPress}
+          disabled={locationLoading || !location}
         />
-      </View>
 
-      {/* <PrimaryButton title="Sign Up" onPress={handleServiceProviderSignupPress} /> */}
+        <View className="mt-7 items-center">
+          <TouchableOpacity onPress={() => router.push('/login')}>
+            <InputLabel text="Already have an account? Login" />
+          </TouchableOpacity>
+        </View>
 
-      <PrimaryButton
-        title={
-          locationLoading
-            ? 'Fetching Location...' // meaningful during loading
-            : !location
-              ? 'Waiting for Location...' // optional fallback
-              : 'Sign Up' // ready
-        }
-        onPress={handleServiceProviderSignupPress}
-        disabled={locationLoading || !location}
-      />
+        {/* ---------------- Divider + Social ---------------- */}
+        <SocialAuthDivider
+          providers={[
+            {
+              id: 'google',
+              icon: require('@/assets/onboarding/google_icon.png'),
+              onPress: () => console.log('Google Login'),
+            },
+            {
+              id: 'apple',
+              icon: require('@/assets/onboarding/apple_icon.png'),
+              onPress: () => console.log('Apple Login'),
+            },
+          ]}
+        />
 
-      <View className="mt-7 items-center">
-        <TouchableOpacity onPress={() => router.push('/login')}>
-          <InputLabel text="Already have an account? Login" />
-        </TouchableOpacity>
-      </View>
-
-      {/* ---------------- Divider + Social ---------------- */}
-      <SocialAuthDivider
-        providers={[
-          {
-            id: 'google',
-            icon: require('@/assets/onboarding/google_icon.png'),
-            onPress: () => console.log('Google Login'),
-          },
-          {
-            id: 'apple',
-            icon: require('@/assets/onboarding/apple_icon.png'),
-            onPress: () => console.log('Apple Login'),
-          },
-        ]}
-      />
-
-      <SuccessModal
-        visible={showSuccessModal}
-        message="Signup Successful!"
-        buttonText="Done"
-        onClose={() => setShowSuccessModal(false)}
-        onButtonPress={() => {
-          setShowSuccessModal(false);
-          router.replace('/(provider)/home');
-        }}
-      />
-    </FormLayout>
+        <SuccessModal
+          visible={showSuccessModal}
+          message="Signup Successful!"
+          buttonText="Done"
+          onClose={() => setShowSuccessModal(false)}
+          onButtonPress={() => {
+            setShowSuccessModal(false);
+            router.replace('/(provider)/home');
+          }}
+        />
+      </FormLayout>
+    </>
   );
 }

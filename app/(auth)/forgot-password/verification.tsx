@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Text, TouchableOpacity, View } from 'react-native';
+import { Button, StatusBar, Text, TouchableOpacity, View } from 'react-native';
 import { router, useLocalSearchParams } from 'expo-router';
 import FormLayout from '@/components/ui/layouts/FormLayout';
 import HeaderPrimary from '@/components/ui/shared/HeaderPrimary';
@@ -53,67 +53,71 @@ const VerificationScreen = () => {
   };
 
   return (
-    <FormLayout>
-      <View className="flex gap-12">
-        {/* Header */}
-        <View className="items-center">
-          <HeaderPrimary
-            text="Verification Code"
-            style={{
-              color: '#040404',
-              letterSpacing: -0.35,
-              fontWeight: 'semibold',
-              marginBottom: 6,
-              lineHeight: 28,
-            }}
-          />
-          <TextBodySecondary
-            style={{ textAlign: 'center', marginTop: 0 }}
-            text="We have sent the verification code to your email address"
-          />
-          <TextBodySecondary
-            style={{ fontWeight: 'bold', marginTop: 4 }}
-            text={email ?? 'email not found'}
-          />
-        </View>
+    <>
+      <StatusBar translucent barStyle="dark-content" />
 
-        {/* OTP Input */}
-        <OtpInput
-          length={4}
-          onChange={(value) => setOtp(value)}
-          onComplete={(value) => setOtp(value)}
-        />
+      <FormLayout>
+        <View className="flex gap-12">
+          {/* Header */}
+          <View className="items-center">
+            <HeaderPrimary
+              text="Verification Code"
+              style={{
+                color: '#040404',
+                letterSpacing: -0.35,
+                fontWeight: 'semibold',
+                marginBottom: 6,
+                lineHeight: 28,
+              }}
+            />
+            <TextBodySecondary
+              style={{ textAlign: 'center', marginTop: 0 }}
+              text="We have sent the verification code to your email address"
+            />
+            <TextBodySecondary
+              style={{ fontWeight: 'bold', marginTop: 4 }}
+              text={email ?? 'email not found'}
+            />
+          </View>
 
-        {/* Resend Section */}
-        <View className="flex items-center gap-0">
-          <Text style={{ lineHeight: 30, textAlign: 'center' }}>
-            <Text>You didn&apos;t get the code?{'\n'}</Text>
+          {/* OTP Input */}
+          <OtpInput
+            length={4}
+            onChange={(value) => setOtp(value)}
+            onComplete={(value) => setOtp(value)}
+          />
 
-            <TouchableOpacity disabled={!canResend} onPress={handleResend}>
-              <Text
-                style={{
-                  color: '#3B82F6', // text-primary
-                  opacity: canResend ? 1 : 0.5, // 50% opacity if not clickable
-                  fontWeight: 'bold',
-                }}>
-                Resend
+          {/* Resend Section */}
+          <View className="flex items-center gap-0">
+            <Text style={{ lineHeight: 30, textAlign: 'center' }}>
+              <Text>You didn&apos;t get the code?{'\n'}</Text>
+
+              <TouchableOpacity disabled={!canResend} onPress={handleResend}>
+                <Text
+                  style={{
+                    color: '#3B82F6', // text-primary
+                    opacity: canResend ? 1 : 0.5, // 50% opacity if not clickable
+                    fontWeight: 'bold',
+                  }}>
+                  Resend
+                </Text>
+              </TouchableOpacity>
+
+              <Text>
+                {'\n'}in {canResend ? 0 : timer}s
               </Text>
-            </TouchableOpacity>
-
-            <Text>
-              {'\n'}in {canResend ? 0 : timer}s
             </Text>
-          </Text>
-        </View>
+          </View>
 
-        {/* Submit */}
-        <PrimaryButton
-          title={loading ? 'Verifying...' : 'Confirm'}
-          onPress={handleVerify}
-          disabled={otp.length !== 4 || loading}
-        />
-      </View>
-    </FormLayout>
+          {/* Submit */}
+          <PrimaryButton
+            title={loading ? 'Verifying...' : 'Confirm'}
+            onPress={handleVerify}
+            disabled={otp.length !== 4 || loading}
+          />
+        </View>
+      </FormLayout>
+    </>
   );
 };
 

@@ -1,16 +1,114 @@
+// import '../global.css';
+// import { useFonts } from 'expo-font';
+// import { Stack } from 'expo-router';
+// import { Provider, useDispatch, useSelector } from 'react-redux';
+// import { ActivityIndicator, View, Platform, KeyboardAvoidingView } from 'react-native';
+// import { SafeAreaProvider } from 'react-native-safe-area-context';
+// import { store, RootState } from '@/store';
+// import { useEffect } from 'react';
+// import { setAppLoading, setUser, setRole } from '@/store/authSlice';
+// import AsyncStorage from '@react-native-async-storage/async-storage';
+// import * as SplashScreen from 'expo-splash-screen';
+// import Toast from 'react-native-toast-message';
+
+// function AppNavigator() {
+//   const dispatch = useDispatch();
+//   const isAppLoading = useSelector((state: RootState) => state.auth.isAppLoading);
+
+//   useEffect(() => {
+//     const bootstrap = async () => {
+//       try {
+//         await SplashScreen.preventAutoHideAsync();
+//         const storedUser = await AsyncStorage.getItem('user');
+//         const storedRole = await AsyncStorage.getItem('role');
+
+//         if (storedUser) dispatch(setUser(JSON.parse(storedUser)));
+//         if (storedRole) dispatch(setRole(storedRole as 'customer' | 'provider'));
+//       } catch (err) {
+//         console.log('Error restoring session:', err);
+//       } finally {
+//         dispatch(setAppLoading(false));
+//         await SplashScreen.hideAsync();
+//       }
+//     };
+
+//     bootstrap();
+//   }, []);
+
+//   if (isAppLoading) {
+//     return (
+//       <View className="flex-1 items-center justify-center">
+//         <ActivityIndicator size="large" />
+//       </View>
+//     );
+//   }
+
+//   return <Stack screenOptions={{ headerShown: false }} />;
+// }
+
+// export default function RootLayout() {
+//   const [fontsLoaded] = useFonts({
+//     'Nunito-Regular': require('@/assets/fonts/Nunito-Regular.ttf'),
+//     'Nunito-Medium': require('@/assets/fonts/Nunito-Medium.ttf'),
+//     'Nunito-SemiBold': require('@/assets/fonts/Nunito-SemiBold.ttf'),
+//     'Nunito-Bold': require('@/assets/fonts/Nunito-Bold.ttf'),
+
+//     'Syne-Regular': require('@/assets/fonts/Syne-Regular.ttf'),
+//     'Syne-Medium': require('@/assets/fonts/Syne-Medium.ttf'),
+//     'Syne-SemiBold': require('@/assets/fonts/Syne-SemiBold.ttf'),
+//     'Syne-Bold': require('@/assets/fonts/Syne-Bold.ttf'),
+//     'Syne-ExtraBold': require('@/assets/fonts/Syne-ExtraBold.ttf'),
+//   });
+
+//   if (!fontsLoaded) {
+//     return (
+//       <>
+//         <View className="flex-1 items-center justify-center">
+//           <ActivityIndicator size="large" color="#2C80EC" />
+//         </View>
+//       </>
+//     );
+//   }
+
+//   return (
+//     <Provider store={store}>
+//       <SafeAreaProvider>
+//         <KeyboardAvoidingView
+//           style={{ flex: 1 }}
+//           behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+//           <AppNavigator />
+//           {/* ✅ Global Toast Provider */}
+//           <Toast />
+//         </KeyboardAvoidingView>
+//       </SafeAreaProvider>
+//     </Provider>
+//   );
+// }
+
 import '../global.css';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import { Provider, useDispatch, useSelector } from 'react-redux';
-import { ActivityIndicator, View, Platform, KeyboardAvoidingView } from 'react-native';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { store, RootState } from '@/store';
+
 import { useEffect } from 'react';
-import { setAppLoading, setUser, setRole } from '@/store/authSlice';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { ActivityIndicator, View, Platform, KeyboardAvoidingView } from 'react-native';
+import { Provider, useDispatch, useSelector } from 'react-redux';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { Stack } from 'expo-router';
+import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-toast-message';
 
+import { store, RootState } from '@/store';
+import { setAppLoading, setUser, setRole } from '@/store/authSlice';
+
+/* ---------------------------------------------------
+   Prevent splash from auto hiding
+---------------------------------------------------- */
+SplashScreen.preventAutoHideAsync();
+
+/* ---------------------------------------------------
+   App Navigator
+---------------------------------------------------- */
 function AppNavigator() {
   const dispatch = useDispatch();
   const isAppLoading = useSelector((state: RootState) => state.auth.isAppLoading);
@@ -18,14 +116,13 @@ function AppNavigator() {
   useEffect(() => {
     const bootstrap = async () => {
       try {
-        await SplashScreen.preventAutoHideAsync();
         const storedUser = await AsyncStorage.getItem('user');
         const storedRole = await AsyncStorage.getItem('role');
 
         if (storedUser) dispatch(setUser(JSON.parse(storedUser)));
         if (storedRole) dispatch(setRole(storedRole as 'customer' | 'provider'));
-      } catch (err) {
-        console.log('Error restoring session:', err);
+      } catch (error) {
+        console.log('Error restoring session:', error);
       } finally {
         dispatch(setAppLoading(false));
         await SplashScreen.hideAsync();
@@ -38,7 +135,7 @@ function AppNavigator() {
   if (isAppLoading) {
     return (
       <View className="flex-1 items-center justify-center">
-        <ActivityIndicator size="large" />
+        <ActivityIndicator size="large" color="#2C80EC" />
       </View>
     );
   }
@@ -46,6 +143,9 @@ function AppNavigator() {
   return <Stack screenOptions={{ headerShown: false }} />;
 }
 
+/* ---------------------------------------------------
+   Root Layout
+---------------------------------------------------- */
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({
     'Nunito-Regular': require('@/assets/fonts/Nunito-Regular.ttf'),
@@ -62,25 +162,26 @@ export default function RootLayout() {
 
   if (!fontsLoaded) {
     return (
-      <>
-        <View className="flex-1 items-center justify-center">
-          <ActivityIndicator size="large" color="#2C80EC" />
-        </View>
-      </>
+      <View className="flex-1 items-center justify-center">
+        <ActivityIndicator size="large" color="#2C80EC" />
+      </View>
     );
   }
 
   return (
-    <Provider store={store}>
-      <SafeAreaProvider>
-        <KeyboardAvoidingView
-          style={{ flex: 1 }}
-          behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-          <AppNavigator />
-          {/* ✅ Global Toast Provider */}
-          <Toast />
-        </KeyboardAvoidingView>
-      </SafeAreaProvider>
-    </Provider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <Provider store={store}>
+        <SafeAreaProvider>
+          <KeyboardAvoidingView
+            style={{ flex: 1 }}
+            behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+            <AppNavigator />
+
+            {/* ✅ Global Toast Provider */}
+            <Toast />
+          </KeyboardAvoidingView>
+        </SafeAreaProvider>
+      </Provider>
+    </GestureHandlerRootView>
   );
 }

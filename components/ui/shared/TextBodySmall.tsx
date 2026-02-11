@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import { Text, TextStyle, StyleProp, TextProps } from 'react-native';
 

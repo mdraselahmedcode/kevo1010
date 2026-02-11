@@ -10,7 +10,7 @@ type SuccessCheckIconProps = {
 const SuccessCheckIcon: React.FC<SuccessCheckIconProps> = ({ size = 80, iconSize = 26 }) => {
   return (
     <View
-      className="relative items-center justify-center bg-white"
+      className="relative items-center justify-center rounded-xl border border-[#cccccc33] bg-sky-50"
       style={{ height: size, width: size }}>
       <View className="absolute rounded-full bg-sky-50" style={{ inset: size * 0.06 }} />
       <View

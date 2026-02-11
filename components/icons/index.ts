@@ -17,6 +17,11 @@ export { VerifiedIcon } from './VerifiedIcon';
 export { CheckInCircleIcon } from './CheckInCircleIcon';
 export  { StarIcon } from './StarIcon';
 export { DownLoadIcon } from './DownloadIcon';
+export { TrashBinIcon } from './TrashBinIcon';
+export { LockIcon } from './LockIcon';
+export { PenIcon } from './PenIcon';
+export { HomeIcon } from './HomeIcon';
+export { BookOpenIcon } from './BookOpenIcon';
 
 // login and signup page
 export { EyeOpenIcon } from './EyeOpenIcon';

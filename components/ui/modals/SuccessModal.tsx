@@ -27,7 +27,7 @@ const SuccessModal: React.FC<SuccessModalProps> = ({
 
           <Text style={styles.message}>{message}</Text>
 
-          <View style={{ width: '100%', marginTop: 48 }}>
+          <View style={{ width: '100%', marginTop: 30 }}>
             <PrimaryButton
               title={buttonText || 'Confirm'}
               onPress={() => {
@@ -47,15 +47,18 @@ export default SuccessModal;
 const styles = StyleSheet.create({
   overlay: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+    backgroundColor: 'rgba(0, 0, 0, 0.02)',
     justifyContent: 'flex-end',
   },
   container: {
-    backgroundColor: '#fbfbfc',
+    backgroundColor: 'white',
     padding: 19,
+    paddingVertical: 30,
     borderTopLeftRadius: 24,
     borderTopRightRadius: 24,
     alignItems: 'center',
+    borderWidth: 2,
+    borderColor: '#cccccb77',
   },
   message: {
     color: '#323135',

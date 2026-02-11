@@ -28,7 +28,7 @@ export default function PrimaryButton({
         flex-row
         items-center
         justify-center
-        rounded-xl
+        rounded-lg
         bg-primary
         py-button
         ${disabled ? 'opacity-50' : ''}

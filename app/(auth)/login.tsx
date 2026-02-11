@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TextInput, TouchableOpacity, ScrollView, Image } from 'react-native';
+import { View, TextInput, TouchableOpacity, ScrollView, Image, StatusBar } from 'react-native';
 import { useRouter } from 'expo-router';
 
 import Animated, {
@@ -21,6 +21,7 @@ import { Role, setRole, setUser } from '@/store/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import type { AppDispatch } from '@/store';
 import { validateFields } from '@/utils/formValidate';
+import FormLayout from '@/components/ui/layouts/FormLayout';
 
 export default function Login() {
   const router = useRouter();
@@ -102,15 +103,9 @@ export default function Login() {
   };
 
   return (
-    <Animated.View style={[{ flex: 1, backgroundColor: '#F9FAFB' }, animatedStyle]}>
-      <ScrollView
-        keyboardShouldPersistTaps="handled"
-        contentContainerStyle={{
-          flexGrow: 1,
-          justifyContent: 'center',
-          paddingHorizontal: 20,
-          paddingVertical: 60,
-        }}>
+    <>
+      <StatusBar translucent barStyle="dark-content" />
+      <FormLayout>
         {/* ---------------- Title ---------------- */}
         <HeaderPrimary text="Login with Email" />
 
@@ -170,7 +165,19 @@ export default function Login() {
             },
           ]}
         />
-      </ScrollView>
-    </Animated.View>
+      </FormLayout>
+      {/* <Animated.View style={[{ flex: 1, backgroundColor: '#F9FAFB' }, animatedStyle]}>
+        <ScrollView
+          keyboardShouldPersistTaps="handled"
+          contentContainerStyle={{
+            flexGrow: 1,
+            justifyContent: 'center',
+            paddingHorizontal: 20,
+            paddingVertical: 60,
+          }}>
+          
+        </ScrollView>
+      </Animated.View> */}
+    </>
   );
 }
